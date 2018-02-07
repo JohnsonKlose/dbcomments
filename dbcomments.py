@@ -11,8 +11,8 @@ sys.setdefaultencoding('utf-8')
 
 # 《敦刻尔克》豆瓣评论地址
 url = 'https://movie.douban.com/subject/26607693/comments?start=0'
-head = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'}
-cookies = {'cookie': 'll="118159"; bid=_vKZDI27ugI; ps=y; ue="johnsonzn@163.com"; dbcl2="63947146:jdOBTMY5NsQ"; _ga=GA1.2.790170630.1503927208; _gid=GA1.2.78626124.1504017107; ck=tuXF; _vwo_uuid_v2=77BAF1538510F4AEC8AA6A43453D0C2F|1a286c3eb772417b868dd7c3f89923be; ap=1; push_noty_num=0; push_doumail_num=0; __utmt=1; __utma=30149280.790170630.1503927208.1504099070.1504101681.10; __utmb=30149280.2.10.1504101681; __utmc=30149280; __utmz=30149280.1504099070.9.6.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmv=30149280.6394'}
+head = {'User-Agent': ' '}
+cookies = {'cookie': ' '}
 
 filename = '/Users/yifengjiao/PycharmProjects/dbcomments/dbcomments.csv'
 f = open(filename, 'w')

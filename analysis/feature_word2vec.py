@@ -1,17 +1,19 @@
 # -*- coding: UTF-8 -*-
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-sys.path.append('../')
-
 from gensim.models import Word2Vec
 import cutwords
 import csv
 import numpy as np
 
-mod = Word2Vec.load("Word60/Word60.model")
-	
+reload(sys)
+sys.setdefaultencoding('utf-8')
+sys.path.append('../')
 
+# 加载词向量模型
+mod = Word2Vec.load("Word60/Word60.model")
+
+
+# 将文字评论转换成数字
 def getvalue(text):
     if "很差" == text:
         return 1
@@ -25,8 +27,11 @@ def getvalue(text):
         return 5
 
 
+# 制作训练集矩阵和验证集矩阵
 def make_sequence_matrix(number, comment_list, filename):
+    # 每个向量的维数
     maxSeqLength = 60
+    # 生成零矩阵
     matrix = np.zeros((number, maxSeqLength), dtype='int32')
     commentCounter = 0
     for comment in comment_list:
@@ -44,6 +49,7 @@ def make_sequence_matrix(number, comment_list, filename):
                 break
         commentCounter += 1
     print matrix
+    # 保存成npy的格式
     np.save(filename, matrix)
 
 csvfile_dunkrik = '../comments/dbcomments_dunkrik.csv'
@@ -148,6 +154,7 @@ print ('The total number of comments is', len(numCount))
 print ('The total number of words in the files is', sum(numCount))
 print ('The average number of words in the files is', sum(numCount)/len(numCount))
 
+# 生成训练集文件
 # make_sequence_matrix(len(numCount), numWords, 'idsMatrix')
 
 
@@ -193,6 +200,7 @@ for index, val in enumerate(corpus_valid):
     numCount_valid.append(len(numWords_valid[index]))
 print numWords_valid[0], len(numCount_valid)
 
+# 生成验证集文件
 # make_sequence_matrix(len(numCount_valid), numWords_valid, 'idsMatrix_valid')
 
 
