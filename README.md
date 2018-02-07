@@ -13,7 +13,7 @@
 	comment = soup.find_all(class_='comment')
 	```  
 	![comment](http://oswrmk9hd.bkt.clouddn.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-02-03%20%E4%B8%8A%E5%8D%8811.42.37.png)  
-	- 评论内容在主节点的直接孩子节点<p>节点中：  
+	- 评论内容在主节点的直接孩子节点\<p>节点中：  
 	```
     commentstring = com.p.string
 	```  
@@ -92,7 +92,7 @@ for (k, v) in worddata.items():
     else:
         word.append(k)
         value.append(v)
-```
+```  
 - 生成词云图  
 ```
 wordcloud = WordCloud(width=1300, height=620)
@@ -254,40 +254,40 @@ LSTM每个单元都将x(t)和h(t-1)作为输入，并且利用这些输入来计
     ![accuracy](http://oswrmk9hd.bkt.clouddn.com/accuracy.png)  
 
 ## 随机森林
-    随机森林对于高维数据有很好的分类结果，运行效率和准确率高，实现起来也比较简单。随机森林的生成方法基于以下几步：  
-    - 从样本集中用Bootstrap随机选取n个样本；  
-    - 从所有属性中随机选取K个属性，选择最佳分割属性作为节点建立CART决策树；  
-    - 重复以上两步m次，即建立了m棵CART决策树；  
-    - 这m个CART形成随机森林，通过投票表决结果，决定数据属于哪一类；  
-    本项目基于scikit-learn库构建随机森林，模型构建主要的任务是调参，我们采用网格搜索进行调参：
-    - 当不设制其他参数的时候，模型的精度为**0.937811404318**，袋外分数（反映模型泛化能力）为**0.305775973427**  
-    ```
-    rf0 = RandomForestClassifier(oob_score=True)
-	rf0.fit(X, y)
-	print rf0.score(X, y)
-	print rf0.oob_score_
-    ```  
-    - n_estimators是RF最大的决策树个数，max_depth是决策树最大深度，min_samples_split是内部节点再划分所需最小样本数，意思是如果某节点的样本数少于min_samples_split，则不会继续再尝试选择最优特征来进行划分。三个参数同时通过网格搜索进行调参，所得最佳参数结果为：**{'min_samples_split': 6, 'n_estimators': 40, 'max_depth': 23}**  
-    ```
-    param_test1 = {'n_estimators': range(10, 50, 10), 'max_depth': range(15, 30, 2), 'min_samples_split': range(2, 10, 2)}
-	gsearch1 = GridSearchCV(estimator=RandomForestClassifier(), param_grid=param_test1, scoring='accuracy', cv=5)
-	gsearch1.fit(X, y)
-	print gsearch1.best_params_
-    ```
-    - max_features是RF划分时考虑的最大特征数，默认是"None",意味着划分时考虑所有的特征数。通过网格搜索单独对这个参数进行调参，所得最佳参数结果为：**{'max_features': 50}**  
-    ```
-    param_test2 = {'max_features': range(50, 60, 2)}
-	gsearch2 = GridSearchCV(estimator=RandomForestClassifier(n_estimators=40, min_samples_split=6, max_depth=27), param_grid=param_test2, scoring='accuracy', cv=5)
+随机森林对于高维数据有很好的分类结果，运行效率和准确率高，实现起来也比较简单。随机森林的生成方法基于以下几步：  
+- 从样本集中用Bootstrap随机选取n个样本；  
+- 从所有属性中随机选取K个属性，选择最佳分割属性作为节点建立CART决策树；  
+- 重复以上两步m次，即建立了m棵CART决策树；  
+- 这m个CART形成随机森林，通过投票表决结果，决定数据属于哪一类；  
+本项目基于scikit-learn库构建随机森林，模型构建主要的任务是调参，我们采用网格搜索进行调参：
+- 当不设制其他参数的时候，模型的精度为**0.937811404318**，袋外分数（反映模型泛化能力）为**0.305775973427**      
+```
+rf0 = RandomForestClassifier(oob_score=True)
+rf0.fit(X, y)
+print rf0.score(X, y)
+print rf0.oob_score_
+```  
+- n_estimators是RF最大的决策树个数，max_depth是决策树最大深度，min_samples_split是内部节点再划分所需最小样本数，意思是如果某节点的样本数少于min_samples_split，则不会继续再尝试选择最优特征来进行划分。三个参数同时通过网格搜索进行调参，所得最佳参数结果为：**{'min_samples_split': 6, 'n_estimators': 40, 'max_depth': 23}**  
+```
+param_test1 = {'n_estimators': range(10, 50, 10), 'max_depth': range(15, 30, 2), 'min_samples_split': range(2, 10, 2)}
+gsearch1 = GridSearchCV(estimator=RandomForestClassifier(), param_grid=param_test1, scoring='accuracy', cv=5)
+gsearch1.fit(X, y)
+print gsearch1.best_params_
+```
+- max_features是RF划分时考虑的最大特征数，默认是"None",意味着划分时考虑所有的特征数。通过网格搜索单独对这个参数进行调参，所得最佳参数结果为：**{'max_features': 50}**  
+```
+param_test2 = {'max_features': range(50, 60, 2)}
+gsearch2 = GridSearchCV(estimator=RandomForestClassifier(n_estimators=40, min_samples_split=6, max_depth=27), param_grid=param_test2, scoring='accuracy', cv=5)
 gsearch2.fit(X, y)
-	print gsearch2.best_params_
-    ```  
-    - 使用之前获得的调参结果，设置随机森林模型的参数，最终获得模型精度**0.93587377745**，袋外分数为**0.36390477948**，可以看到模型的精度已经稳定，但泛化能力经过调参后得到了提高。  
-    ```
-    rf1 = RandomForestClassifier(n_estimators=40, min_samples_split=6, max_depth=27, max_features=56, oob_score=True)
-	rf1.fit(X, y)
-	print rf1.score(X, y)
-	print rf1.oob_score_
-    ```  
+print gsearch2.best_params_
+```  
+- 使用之前获得的调参结果，设置随机森林模型的参数，最终获得模型精度**0.93587377745**，袋外分数为**0.36390477948**，可以看到模型的精度已经稳定，但泛化能力经过调参后得到了提高。  
+```
+rf1 = RandomForestClassifier(n_estimators=40, min_samples_split=6, max_depth=27, max_features=56, oob_score=True)
+rf1.fit(X, y)
+print rf1.score(X, y)
+print rf1.oob_score_
+```  
 
 ## 展望  
 - 目前豆瓣电影评论每个电影只显示前500条评论，因此要获取大量数据需要爬取不同电影的评论。本项目采用解析页面的方法爬取数据，是否有别的抓包方法爬取数据还有待研究；  
