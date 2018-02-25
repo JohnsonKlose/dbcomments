@@ -250,8 +250,8 @@ LSTM每个单元都将x(t)和h(t-1)作为输入，并且利用这些输入来计
     	print ("Accuracy for this batch:", (sess.run(accuracy, {input_data: next_batch_valid,labels: next_batch_labels_valid})))
     ```  
     - 训练模型的损失值和正确率结果如下图所示，可以看到，随着迭代次数的不断增加，损失率不断下降，准确率也不断提升，最终稳定在95%左右。  
-    ![loss](http://oswrmk9hd.bkt.clouddn.com/loss.png)  
-    ![accuracy](http://oswrmk9hd.bkt.clouddn.com/accuracy.png)  
+![loss](http://oswrmk9hd.bkt.clouddn.com/loss.png)  
+![accuracy](http://oswrmk9hd.bkt.clouddn.com/accuracy.png)  
 
 ## 随机森林
 随机森林对于高维数据有很好的分类结果，运行效率和准确率高，实现起来也比较简单。随机森林的生成方法基于以下几步：  
