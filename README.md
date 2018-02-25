@@ -100,7 +100,7 @@ wordcloud.add("", word, value, word_size_range=[20, 1000], shape='diamond')
 wordcloud.render()
 ```  
 - 效果图如下：  
-![wordcloud](http://oswrmk9hd.bkt.clouddn.com/echarts.png)  
+![wordcloud](http://oswrmk9hd.bkt.clouddn.com/%E4%B8%8B%E8%BD%BD.png)  
 
 ## 神经网络
 本项目爬取数据中，有评论内容和评级两组数据，考虑评论内容与评级之间有关联，因此建立预测模型通过评论内容自动预测该评论的评级，首先通过循环神经网络(RNN)加长短期记忆网络(LSTM)建立预测模型，具体步骤如下：
@@ -129,7 +129,7 @@ mod = Word2Vec.load("Word60/Word60.model")
     	corpus.append(row[-1])
     	value.append(getvalue(row[2]))
 	```  
-	**Tips:**需要注意的是，我们爬取数据中评星分为5个等级：力荐、推荐、还行、较差、很差，因此我们的分类标签分为5种，神经网络中我们通常通过向量的方式表示分类标签，因此我们将5个等级对应的标签分别设为[1,0,0,0,0][0,1,0,0,0][0,0,1,0,0][0,0,0,1,0][0,0,0,0,1]  
+**Tips:**需要注意的是，我们爬取数据中评星分为5个等级：力荐、推荐、还行、较差、很差，因此我们的分类标签分为5种，神经网络中我们通常通过向量的方式表示分类标签，因此我们将5个等级对应的标签分别设为[1,0,0,0,0][0,1,0,0,0][0,0,1,0,0][0,0,0,1,0][0,0,0,0,1]  
 	- 将每条评论进行分词，numWords存放分词结果，numCount存放分词的长度：  
 	```
 	numWords = []
